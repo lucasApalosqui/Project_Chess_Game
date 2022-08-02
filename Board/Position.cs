@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChessGame.Board
+namespace ChessGame.board
 {
     internal class Position
     {
