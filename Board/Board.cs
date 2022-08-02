@@ -20,6 +20,11 @@ namespace ChessGame.board
             piece = new Piece[rows, columns];
         }
 
+        public Piece Piece(int row, int column)
+        {
+            return piece[row, column];
+        }
+
 
     }
 }

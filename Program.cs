@@ -8,9 +8,11 @@ namespace ChessGame
 
         static void Main(string[] args)
         {
-            Position pos = new Position(2, 3);
+            Board pos = new Board(8, 8);
 
-            Console.WriteLine(pos);
+            Screen.printBoard(pos);
+
+           
         }
     }
 }
