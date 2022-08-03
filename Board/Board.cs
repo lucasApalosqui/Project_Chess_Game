@@ -52,6 +52,10 @@ namespace ChessGame.board
         /* adds a specific piece to a position on the board */
         public void putPiece(Piece p, Position pos)
         {
+            if (existPiece(pos))
+            {
+                throw new BoardException("there is already a piece in that position");
+            }
             piece[pos.row, pos.column] = p;
             p.position = pos;
         }
