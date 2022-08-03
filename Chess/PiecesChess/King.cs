@@ -2,7 +2,7 @@
 using ChessGame.board;
 using ChessGame.board.Enum;
 
-namespace ChessGame.Chess
+namespace ChessGame.Chess.PiecesChess
 {
     internal class King : Piece
     {

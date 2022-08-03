@@ -2,18 +2,19 @@
 using ChessGame.board.Enum;
 using ChessGame.board;
 
-namespace ChessGame.Chess
+
+namespace ChessGame.Chess.PiecesChess
 {
-    internal class Bishop : Piece
+    internal class Queen : Piece
     {
-        public Bishop(Color color, Board table) : base(color, table)
+        public Queen(Color color, Board table) : base(color, table)
         {
 
         }
 
         public override string ToString()
         {
-            return "B";
+            return "Q";
         }
     }
 }

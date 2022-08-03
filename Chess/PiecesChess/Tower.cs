@@ -2,19 +2,18 @@
 using ChessGame.board.Enum;
 using ChessGame.board;
 
-
-namespace ChessGame.Chess
+namespace ChessGame.Chess.PiecesChess
 {
-    internal class Horse : Piece
+    internal class Tower : Piece
     {
-        public Horse(Color color, Board table) : base(color, table)
+        public Tower(Color color, Board table) : base(color, table)
         {
 
         }
 
         public override string ToString()
         {
-            return "H";
+            return "T";
         }
     }
 }
