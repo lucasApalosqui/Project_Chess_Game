@@ -25,6 +25,12 @@ namespace ChessGame.board
             return piece[row, column];
         }
 
+        public void putPiece(Piece p, Position pos)
+        {
+            piece[pos.row, pos.column] = p;
+            p.position = pos;
+        }
+
 
     }
 }

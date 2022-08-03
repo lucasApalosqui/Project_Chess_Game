@@ -14,7 +14,7 @@ namespace ChessGame
                 {
                     if(board.Piece(r, c) == null)
                     {
-                        Console.Write("▀ ");
+                        Console.Write("- ");
                     }
                     else
                     {
