@@ -12,13 +12,15 @@ namespace ChessGame
         {
             try
             {
-                Board pos = new Board(8, 8);
+                /*Board pos = new Board(8, 8);
 
                 pos.putPiece(new Pawn(Color.Red, pos), new Position(0, 0));
                 pos.putPiece(new King(Color.Red, pos), new Position(1, 0));
                 pos.putPiece(new Queen(Color.Red, pos), new Position(7, 5));
 
-                Screen.printBoard(pos);
+                Screen.printBoard(pos);*/
+                PositionChess pos = new PositionChess('d', 8);
+                Console.Write(pos.toPosition());
             }catch (BoardException e)
             {
                 Console.WriteLine(e.Message);
