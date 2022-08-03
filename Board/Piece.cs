@@ -3,7 +3,7 @@ using ChessGame.board.Enum;
 
 namespace ChessGame.board
 {
-    internal class Piece
+    internal abstract class Piece
     {
         public Position position { get; set; }
         public Color color { get; set; }
@@ -22,5 +22,7 @@ namespace ChessGame.board
         {
             qntMoves++;
         }
+
+        public abstract bool[,] possibleMoves();
     }
 }

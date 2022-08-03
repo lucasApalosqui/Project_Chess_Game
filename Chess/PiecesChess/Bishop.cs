@@ -11,9 +11,16 @@ namespace ChessGame.Chess.PiecesChess
 
         }
 
+        public override bool[,] possibleMoves()
+        {
+            throw new NotImplementedException();
+        }
+
         public override string ToString()
         {
             return "B";
         }
+
+
     }
 }
