@@ -13,15 +13,21 @@ namespace ChessGame
         {
             try
             {
-                Board pos = new Board(8, 8);
+                ChessMatch macth = new ChessMatch();
+                while(macth.finish == false)
+                {
+                    Console.Clear();
+                    Screen.printBoard(macth.board);
 
-                pos.putPiece(new Pawn(Color.Red, pos), new Position(0, 0));
-                pos.putPiece(new King(Color.Green, pos), new Position(1, 0));
-                pos.putPiece(new Queen(Color.Blue, pos), new Position(7, 5));
+                    Console.Write("Origin: ");
+                    Position origin = Screen.readChessPosition().toPosition();
+                    Console.Write("Destiny: ");
+                    Position destiny = Screen.readChessPosition().toPosition();
 
-                Screen.printBoard(pos);
-                PositionChess post = new PositionChess('d', 8);
-                Console.Write(post.toPosition());
+                    macth.performMoviment(origin, destiny);
+                }
+
+                
             }catch (BoardException e)
             {
                 Console.WriteLine(e.Message);

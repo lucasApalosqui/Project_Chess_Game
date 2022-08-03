@@ -60,6 +60,18 @@ namespace ChessGame.board
             p.position = pos;
         }
 
+        public Piece removePiece(Position pos)
+        {
+            if(Piece(pos) == null)
+            {
+                return null;
+            }
+            Piece aux = Piece(pos);
+            aux.position = null;
+            piece[pos.row, pos.column] = null;
+            return aux;
+        }
+
         /* analyzes whether a position is valid or not */
         public bool validPosition(Position pos)
         {

@@ -17,5 +17,10 @@ namespace ChessGame.board
             this.qntMoves = 0;
             this.table = table;
         }
+
+        public void incrementMovesQuantity()
+        {
+            qntMoves++;
+        }
     }
 }
