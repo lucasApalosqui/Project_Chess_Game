@@ -23,6 +23,28 @@ namespace ChessGame.board
             qntMoves++;
         }
 
+        public bool possibleMovesExistis()
+        {
+            bool[,] mat = possibleMoves();
+            for(int r = 0; r < table.rows; r++)
+            {
+                for(int c = 0; c < table.columns; c++)
+                {
+                    if (mat[r,c])
+                    {
+                        return true;
+                    }
+
+                }
+            }
+            return false;
+        }
+
+        public bool canMoveTo(Position pos)
+        {
+            return possibleMoves()[pos.row, pos.column];
+        }
+
         public abstract bool[,] possibleMoves();
     }
 }

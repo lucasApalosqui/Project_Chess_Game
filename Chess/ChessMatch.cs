@@ -8,8 +8,8 @@ namespace ChessGame.Chess
     internal class ChessMatch
     {
         public Board board { get; private set; }
-        private int turn;
-        private Color actualPlayer;
+        public int turn { get; private set; }
+        public Color actualPlayer { get; private set; }
         public bool finish { get; private set; }
 
         public ChessMatch()
@@ -27,6 +27,49 @@ namespace ChessGame.Chess
             p.incrementMovesQuantity();
             Piece capturedPiece = board.removePiece(destiny);
             board.putPiece(p, destiny);
+        }
+
+        public void makesMove(Position origin, Position destiny)
+        {
+            performMoviment(origin, destiny);
+            turn++;
+            switchPlayer();
+        }
+
+        private void switchPlayer()
+        {
+            if(actualPlayer == Color.Red)
+            {
+                actualPlayer = Color.Blue;
+            }
+            else
+            {
+                actualPlayer = Color.Red;
+            }
+        }
+
+        public void validOriginPosition(Position pos)
+        {
+            if(board.Piece(pos) == null)
+            {
+                throw new BoardException("there are no pieces in the indicated position of origin");
+            }
+            if(actualPlayer != board.Piece(pos).color)
+            {
+                throw new BoardException("Your pieces are " + actualPlayer);
+            }
+            if (!board.Piece(pos).possibleMovesExistis())
+            {
+                throw new BoardException("there are no possible moves for this piece");
+            }
+        }
+
+        public void validDestinyposition(Position origin, Position destiny)
+        {
+            if (!board.Piece(origin).canMoveTo(destiny))
+            {
+                throw new BoardException("Destiny position is invalid!");
+            }
         }
 
         private void putPieces()

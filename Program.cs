@@ -16,21 +16,36 @@ namespace ChessGame
                 ChessMatch macth = new ChessMatch();
                 while(macth.finish == false)
                 {
-                    Console.Clear();
-                    Screen.printBoard(macth.board);
+                    try
+                    {
+                        Console.Clear();
+                        Screen.printBoard(macth.board);
+                        Console.WriteLine();
+                        Console.WriteLine("Turn: " + macth.turn);
+                        Console.WriteLine("Waiting movement for: " + macth.actualPlayer);
 
-                    Console.Write("Origin: ");
-                    Position origin = Screen.readChessPosition().toPosition();
 
-                    bool[,] possiblePositions = macth.board.Piece(origin).possibleMoves();
+                        Console.Write("Origin: ");
+                        Position origin = Screen.readChessPosition().toPosition();
+                        macth.validOriginPosition(origin);
 
-                    Console.Clear();
-                    Screen.printBoard(macth.board, possiblePositions);
+                        bool[,] possiblePositions = macth.board.Piece(origin).possibleMoves();
 
-                    Console.Write("Destiny: ");
-                    Position destiny = Screen.readChessPosition().toPosition();
+                        Console.Clear();
+                        Screen.printBoard(macth.board, possiblePositions);
 
-                    macth.performMoviment(origin, destiny);
+                        Console.Write("Destiny: ");
+                        Position destiny = Screen.readChessPosition().toPosition();
+                        macth.validDestinyposition(origin, destiny);
+
+                        macth.makesMove(origin, destiny);
+                    }
+                    catch(BoardException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.Write("Press ENTER to try again: ");
+                        Console.ReadLine();
+                    }
                 }
 
                 
