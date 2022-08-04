@@ -8,6 +8,43 @@ namespace ChessGame
 {
     internal class Screen
     {
+        public static void printMatch(ChessMatch match)
+        {
+            printBoard(match.board);
+            Console.WriteLine();
+            printCapturedPieces(match);
+            Console.WriteLine();
+            Console.WriteLine("Turn: " + match.turn);
+            Console.WriteLine("Waiting movement for: " + match.actualPlayer);
+
+        }
+
+        public static void printCapturedPieces(ChessMatch match)
+        {
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.WriteLine("Captured Pieces: ");
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("Red: ");
+            printGroup(match.capturedPieces(Color.Red));
+
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("Blue: ");
+            printGroup(match.capturedPieces(Color.Blue));
+
+            Console.ForegroundColor = aux;
+        }
+
+        public static void printGroup(HashSet<Piece> group)
+        {
+            Console.Write("[");
+            foreach(Piece x in group)
+            {
+                Console.Write(x + " ");
+            }
+            Console.WriteLine("]");
+        }
+
         public static void printBoard(Board board)
         {
             for (int r = 0; r < board.rows; r++)

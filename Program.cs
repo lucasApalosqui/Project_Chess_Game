@@ -19,10 +19,7 @@ namespace ChessGame
                     try
                     {
                         Console.Clear();
-                        Screen.printBoard(macth.board);
-                        Console.WriteLine();
-                        Console.WriteLine("Turn: " + macth.turn);
-                        Console.WriteLine("Waiting movement for: " + macth.actualPlayer);
+                        Screen.printMatch(macth);
 
 
                         Console.Write("Origin: ");
