@@ -23,6 +23,11 @@ namespace ChessGame.board
             qntMoves++;
         }
 
+        public void decrementMovesQuantity()
+        {
+            qntMoves--;
+        }
+
         public bool possibleMovesExistis()
         {
             bool[,] mat = possibleMoves();

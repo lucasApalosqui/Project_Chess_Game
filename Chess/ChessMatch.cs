@@ -12,6 +12,7 @@ namespace ChessGame.Chess
         public int turn { get; private set; }
         public Color actualPlayer { get; private set; }
         public bool finish { get; private set; }
+        public bool xeque { get; private set; }
         private HashSet<Piece> pieces;
         private HashSet<Piece> captures;
 
@@ -20,13 +21,14 @@ namespace ChessGame.Chess
             board = new Board(8, 8);
             turn = 1;
             actualPlayer = Color.Red;
+            xeque = false;
             finish = false;
             pieces = new HashSet<Piece>();
             captures = new HashSet<Piece>();
             putPieces();
         }
 
-        public void performMoviment(Position origin, Position destiny)
+        public Piece performMoviment(Position origin, Position destiny)
         {
             Piece p = board.removePiece(origin);
             p.incrementMovesQuantity();
@@ -36,13 +38,41 @@ namespace ChessGame.Chess
             {
                 captures.Add(capturedPiece);
             }
+            return capturedPiece;
         }
 
         public void makesMove(Position origin, Position destiny)
         {
-            performMoviment(origin, destiny);
+            Piece capturedPiece = performMoviment(origin, destiny);
+            if (isinXeque(actualPlayer))
+            {
+                unmakeMove(origin, destiny, capturedPiece);
+                throw new BoardException("you can't put yourself in check!");
+            }
+
+            if(isinXeque(adversary(actualPlayer)))
+            {
+                xeque = true;
+            }
+            else
+            {
+                xeque = false;
+            }
+
             turn++;
             switchPlayer();
+        }
+
+        private void unmakeMove(Position origin, Position destiny, Piece capturedPiece)
+        {
+            Piece p = board.removePiece(destiny);
+            p.decrementMovesQuantity();
+            if (capturedPiece != null)
+            {
+                board.putPiece(capturedPiece, destiny);
+                captures.Remove(capturedPiece);
+            }
+            board.putPiece(p, origin);
         }
 
         private void switchPlayer()
@@ -106,6 +136,48 @@ namespace ChessGame.Chess
             }
             aux.ExceptWith(capturedPieces(color));
             return aux;
+        }
+
+        private Color adversary(Color color)
+        {
+            if (color == Color.Red)
+            {
+                return Color.Blue;
+            }
+            else
+            {
+                return Color.Red;
+            }
+        }
+
+        private Piece king(Color color)
+        {
+            foreach(Piece x in piecesInGame(color))
+            {
+                if(x is King)
+                {
+                    return x;
+                }
+            }
+            return null;
+        }
+
+        public bool isinXeque(Color color)
+        {
+            Piece K = king(color);
+            if (K == null)
+            {
+                throw new BoardException("There´s no King with " + color + " color in Board");
+            }
+            foreach(Piece x in piecesInGame(adversary(color)))
+            {
+                bool[,] mat = x.possibleMoves();
+                if (mat[K.position.row, K.position.column])
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void putNewPiece(char column, int row, Piece piece)
