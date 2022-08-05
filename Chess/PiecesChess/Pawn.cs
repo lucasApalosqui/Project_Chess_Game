@@ -16,9 +16,75 @@ namespace ChessGame.Chess.PiecesChess
             return "P";
         }
 
+        private bool existsEnemy(Position pos)
+        {
+            Piece p = table.Piece(pos);
+            return p != null && p.color != color;
+        }
+
+        private bool free(Position pos)
+        {
+            return table.Piece(pos) == null;
+        }
+
         public override bool[,] possibleMoves()
         {
-            throw new NotImplementedException();
+            bool[,] mat = new bool[table.rows, table.columns];
+            Position pos = new Position(0, 0);
+
+            if(color == Color.Red)
+            {
+                pos.defineValues(position.row - 1, position.column);
+                if(table.validPosition(pos) && free(pos))
+                {
+                    mat[pos.row, pos.column] = true;
+                }
+
+                pos.defineValues(position.row - 2, position.column);
+                if (table.validPosition(pos) && free(pos) && qntMoves == 0)
+                {
+                    mat[pos.row, pos.column] = true;
+                }
+
+                pos.defineValues(position.row - 1, position.column - 1);
+                if (table.validPosition(pos) && existsEnemy(pos))
+                {
+                    mat[pos.row, pos.column] = true;
+                }
+
+                pos.defineValues(position.row - 1, position.column + 1);
+                if (table.validPosition(pos) && existsEnemy(pos))
+                {
+                    mat[pos.row, pos.column] = true;
+                }
+            }
+            else
+            {
+                pos.defineValues(position.row + 1, position.column);
+                if (table.validPosition(pos) && free(pos))
+                {
+                    mat[pos.row, pos.column] = true;
+                }
+
+                pos.defineValues(position.row + 2, position.column);
+                if (table.validPosition(pos) && free(pos) && qntMoves == 0)
+                {
+                    mat[pos.row, pos.column] = true;
+                }
+
+                pos.defineValues(position.row + 1, position.column - 1);
+                if (table.validPosition(pos) && existsEnemy(pos))
+                {
+                    mat[pos.row, pos.column] = true;
+                }
+
+                pos.defineValues(position.row + 1, position.column + 1);
+                if (table.validPosition(pos) && existsEnemy(pos))
+                {
+                    mat[pos.row, pos.column] = true;
+                }
+            }
+            return mat;
         }
     }
 }
