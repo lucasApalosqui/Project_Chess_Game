@@ -59,8 +59,17 @@ namespace ChessGame.Chess
                 xeque = false;
             }
 
-            turn++;
-            switchPlayer();
+            if (isXequeMate(adversary(actualPlayer)))
+            {
+                finish = true;
+            }
+            else
+            {
+                turn++;
+                switchPlayer();
+            }
+
+           
         }
 
         private void unmakeMove(Position origin, Position destiny, Piece capturedPiece)
@@ -178,6 +187,37 @@ namespace ChessGame.Chess
                 }
             }
             return false;
+        }
+
+        public bool isXequeMate(Color color)
+        {
+            if (!isinXeque(color))
+            {
+                return false;
+            }
+            foreach(Piece x in piecesInGame(color))
+            {
+                bool[,] mat = x.possibleMoves();
+                for (int r = 0; r < board.rows; r++)
+                {
+                    for(int c = 0; c < board.columns; c++)
+                    {
+                        if (mat[r, c])
+                        {
+                            Position origin = x.position;
+                            Position destiny = new Position(r, c);
+                            Piece capturedPiece = performMoviment(x.position, destiny);
+                            bool xequeTest = isinXeque(color);
+                            unmakeMove(origin, destiny, capturedPiece);
+                            if (!xequeTest)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         public void putNewPiece(char column, int row, Piece piece)

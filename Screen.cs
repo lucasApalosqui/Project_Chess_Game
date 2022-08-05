@@ -15,13 +15,37 @@ namespace ChessGame
             printCapturedPieces(match);
             Console.WriteLine();
             Console.WriteLine("Turn: " + match.turn);
-            Console.WriteLine("Waiting movement for: " + match.actualPlayer);
-            if (match.xeque)
+            if (!match.finish)
             {
-                Console.WriteLine("You are in XEQUE");
+                Console.WriteLine("Waiting movement for: " + match.actualPlayer);
+                if (match.xeque)
+                {
+                    Console.WriteLine("You are in XEQUE");
+                }
             }
+            else
+            {
+                Console.WriteLine("XEQUEMATE");
+                Console.WriteLine("Winner is: ");
+                if(match.actualPlayer == Color.Red)
+                {
+                    ConsoleColor aux = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Red player");
+                    Console.ForegroundColor = aux;
+                }
+                else
+                {
+                    ConsoleColor aux = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.Write("Blue player");
+                    Console.ForegroundColor = aux;
+                }
+            }
+            
 
         }
+
 
         public static void printCapturedPieces(ChessMatch match)
         {
